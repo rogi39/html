@@ -1,0 +1,85 @@
+// USER VARIABLES SECTION
+
+$accent: #c92b45
+$text: #1d1d1b
+$yellow: #f4ba40
+$bg: #FFF5E2
+
+$br12: 12px
+$br24: 24px
+
+// Bootstrap compatible gutter variable => $gutter
+$grid-gutter-width: 20px
+$gutter: $grid-gutter-width
+
+$grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, wxp: 1440px, wxpp: 1600px, fhd: 1920px, qhd: 2560px)
+
+// +media-breakpoint-up(sm)
+// +media-breakpoint-up(md)
+// +media-breakpoint-up(lg)
+// +media-breakpoint-up(xl)
+// +media-breakpoint-up(wxp)
+// +media-breakpoint-up(wxpp)
+// +media-breakpoint-up(fhd)
+// +media-breakpoint-up(qshd)
+
+// FONTS LOAD SECTION
+
+// 100 - Extra Light or Ultra Light
+// 200 - Light or Thin
+// 300 - Book or Demi
+// 400 - Regular or Normal
+// 500 - Medium
+// 600 - Semibold or Demibold
+// 700 - Bold
+// 800 - Black or Extra Bold or Heavy
+// 900 - Extra Black or Fat or Ultra Blac
+
+// IMPORT SECTION
+
+@import 'node_modules/bootstrap/scss/bootstrap-reboot.scss'
+@import 'node_modules/bootstrap/scss/mixins/_breakpoints.scss'
+
+// @import 'node_modules/bootstrap/scss/bootstrap-grid.scss' // Optional Bootstrap Grid
+// @import 'node_modules/bootstrap/scss/utilities/_sizing.scss' // Optional Bootstrap Utilites
+
+// FONTS LOAD SECTION
+
+@mixin font($fname, $fstyle, $fweight, $furl)
+	@font-face
+		font-family: $fname
+		font-style: $fstyle
+		font-weight: $fweight
+		font-display: swap // Uncomment to initially display system fonts
+		src: url('#{$furl}.eot')
+		src: url('#{$furl}.eot?#iefix') format('embedded-opentype'), url('#{$furl}.woff2') format('woff2'), url('#{$furl}.woff') format('woff'), url('#{$furl}.ttf') format('truetype')
+
+@include font('Inter', normal, 400, '../fonts/Inter-Regular')
+@include font('Inter', normal, 500, '../fonts/Inter-Medium')
+@include font('Inter', normal, 600, '../fonts/Inter-SemiBold')
+@include font('Inter', normal, 700, '../fonts/Inter-Bold')
+// GENERAL DOCUMENT STYLES
+
+// GENERAL DOCUMENT STYLES
+
+::placeholder
+	color: #666
+
+::selection
+	background-color: $accent
+	color: #fff
+
+html
+	scroll-behavior: smooth
+	scroll-padding-top: 90px
+
+body
+	font-family: Inter, sans-serif
+	font-size: 16px
+	min-width: 360px
+	position: relative
+	line-height: 1.65
+	overflow-x: hidden
+	color: $text
+	+media-breakpoint-up(sm)
+		font-size: 24px

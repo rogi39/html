@@ -1,0 +1,38 @@
+{
+	"name": "frontend-build",
+	"version": "1.0.0",
+	"description": "Modern Gulp build system with SASS, JS, SVG sprite, image copying and font conversion",
+	"main": "gulpfile.js",
+	"scripts": {
+		"start": "gulp",
+		"build": "gulp build",
+		"font": "gulp font"
+	},
+	"keywords": [
+		"gulp",
+		"sass",
+		"javascript",
+		"svg-sprite",
+		"font-conversion",
+		"frontend"
+	],
+	"author": "Your Name",
+	"license": "MIT",
+	"devDependencies": {
+		"bootstrap": "5.3.8",
+		"browser-sync": "^2.29.3",
+		"gulp": "^4.0.2",
+		"gulp-autoprefixer": "^8.0.0",
+		"gulp-clean-css": "^4.3.0",
+		"gulp-concat": "^2.6.1",
+		"gulp-dart-sass": "^1.1.0",
+		"gulp-rename": "^2.0.0",
+		"gulp-sourcemaps": "^3.0.0",
+		"gulp-svgstore": "^9.0.0",
+		"gulp-terser": "^2.0.0",
+		"sass": "^1.75.0",
+		"ttf2eot": "^2.0.0",
+		"ttf2woff": "^2.0.2",
+		"ttf2woff2": "^4.0.5"
+	}
+}
