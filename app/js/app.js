@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-	// Custom JS
-
 });
 
 document.querySelectorAll('.tel').forEach(el => {
