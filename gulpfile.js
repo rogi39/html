@@ -27,40 +27,42 @@ const path = require('path');
 const paths = {
 	styles: {
 		src: [
-			'public/sass/**/*.sass',
-			'public/sass/**/*.scss',
-			'public/components/**/*.sass',
-			'public/components/**/*.scss',
-			'public/components/**/*.css',
-			'public/libs/**/*.css'
+			'app/libs/**/*.css',
+			'app/components/**/*.sass',
+			'app/components/**/*.scss',
+			'app/components/**/*.css',
+			'app/sass/**/*.sass',
+			'app/sass/**/*.scss',
+			'app/sass/**/*.css',
 		],
-		dest: 'public/css'
+		dest: 'app/css'
 	},
 	scripts: {
 		src: [
-			'public/libs/**/*.js',
-			'public/js/script.js'
+			'app/libs/**/*.js',
+			'app/components/**/*.js',
+			'app/js/script.js'
 		],
-		dest: 'public/js'
+		dest: 'app/js'
 	},
 	images: {
-		src: 'public/images/src/**/*',
-		dest: 'public/images'
+		src: 'app/images/src/**/*',
+		dest: 'app/images'
 	},
 	svgs: {
-		src: 'public/svg-icons/*.svg',
-		dest: 'public/images'
+		src: 'app/svg-icons/*.svg',
+		dest: 'app/images'
 	},
 	fonts: {
-		src: 'public/fonts/**/*',
-		dest: 'public/fonts'
+		src: 'app/fonts/**/*',
+		dest: 'app/fonts'
 	},
 	fontsConvert: {
-		src: 'public/fonts/src/*.ttf',
-		dest: 'public/fonts'
+		src: 'app/fonts/*.ttf',
+		dest: 'app/fonts'
 	},
 	html: {
-		src: 'public/*.html',
+		src: 'app/*.html',
 		dest: 'public'
 	}
 };
@@ -118,50 +120,46 @@ function copyFonts() {
 
 // Конвертация .ttf в .woff, .woff2, .eot + копирование исходного .ttf
 function convertTtfToOtherFormats() {
-	const ttfFiles = fs.readdirSync('public/fonts/src/').filter(file => path.extname(file) === '.ttf');
+    const fontDir = 'app/fonts/';
+    const ttfFiles = fs.readdirSync(fontDir).filter(file => path.extname(file) === '.ttf');
 
-	ttfFiles.forEach(file => {
-		const srcPath = `public/fonts/src/${file}`;
-		const destPath = `public/fonts/${file}`;
-		const fontName = path.basename(file, '.ttf');
+    ttfFiles.forEach(file => {
+        const filePath = `${fontDir}${file}`;
+        const fontName = path.basename(file, '.ttf');
 
-		// Копируем исходный .ttf в public/fonts/
-		fs.copyFileSync(srcPath, destPath);
+        // Читаем .ttf файл для конвертации
+        const ttfBuffer = fs.readFileSync(filePath);
 
-		// Читаем .ttf файл для конвертации
-		const ttfBuffer = fs.readFileSync(srcPath);
+        // Конвертация в .woff
+        let woffBuffer = ttf2woff(ttfBuffer, {});
+        if (!(woffBuffer instanceof Buffer)) {
+            woffBuffer = Buffer.from(woffBuffer);
+        }
+        fs.writeFileSync(`${fontDir}${fontName}.woff`, woffBuffer);
 
-		// Конвертация в .woff
-		let woffBuffer = ttf2woff(ttfBuffer, {});
-		if (!(woffBuffer instanceof Buffer)) {
-			woffBuffer = Buffer.from(woffBuffer);
-		}
-		fs.writeFileSync(`public/fonts/${fontName}.woff`, woffBuffer);
+        // Конвертация в .woff2
+        let woff2Buffer = ttf2woff2(ttfBuffer);
+        if (!(woff2Buffer instanceof Buffer)) {
+            woff2Buffer = Buffer.from(woff2Buffer);
+        }
+        fs.writeFileSync(`${fontDir}${fontName}.woff2`, woff2Buffer);
 
-		// Конвертация в .woff2
-		let woff2Buffer = ttf2woff2(ttfBuffer);
-		if (!(woff2Buffer instanceof Buffer)) {
-			woff2Buffer = Buffer.from(woff2Buffer);
-		}
-		fs.writeFileSync(`public/fonts/${fontName}.woff2`, woff2Buffer);
+        // Конвертация в .eot
+        let eotBuffer = ttf2eot(ttfBuffer);
+        if (!(eotBuffer instanceof Buffer)) {
+            eotBuffer = Buffer.from(eotBuffer);
+        }
+        fs.writeFileSync(`${fontDir}${fontName}.eot`, eotBuffer);
+    });
 
-		// Конвертация в .eot
-		let eotBuffer = ttf2eot(ttfBuffer);
-		if (!(eotBuffer instanceof Buffer)) {
-			eotBuffer = Buffer.from(eotBuffer);
-		}
-		fs.writeFileSync(`public/fonts/${fontName}.eot`, eotBuffer);
-	});
-
-	return src('public/fonts/src/*.ttf', {
-		read: false
-	});
+    // Возвращаем поток для Gulp
+    return src('app/fonts/*.ttf', { read: false });
 }
 
 // Запуск локального сервера
 function serve() {
 	browsersync.init({
-		server: './public',
+		server: './app',
 		open: true,
 		notify: false
 	});
