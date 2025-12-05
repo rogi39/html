@@ -53,11 +53,12 @@ $grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, wxp: 144
 		font-display: swap // Uncomment to initially display system fonts
 		src: url('#{$furl}.eot')
 		src: url('#{$furl}.eot?#iefix') format('embedded-opentype'), url('#{$furl}.woff2') format('woff2'), url('#{$furl}.woff') format('woff'), url('#{$furl}.ttf') format('truetype')
+		unicode-range: U+21-23,U+25-5F,U+61-7E,U+AB,U+BB,U+401,U+410-44F,U+451,U+2013-2014,U+2018-2019,U+201C,U+201C-201E,U+2026,U+20BD
 
-@include font('Inter', normal, 400, '../fonts/Inter-Regular')
-@include font('Inter', normal, 500, '../fonts/Inter-Medium')
-@include font('Inter', normal, 600, '../fonts/Inter-SemiBold')
-@include font('Inter', normal, 700, '../fonts/Inter-Bold')
+@include font('Inter', normal, 400, '../fonts/inter-regular-russian')
+@include font('Inter', normal, 500, '../fonts/inter-medium-russian')
+@include font('Inter', normal, 600, '../fonts/inter-semibold-russian')
+@include font('Inter', normal, 700, '../fonts/inter-bold-russian')
 // GENERAL DOCUMENT STYLES
 
 // GENERAL DOCUMENT STYLES

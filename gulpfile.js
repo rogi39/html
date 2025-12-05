@@ -211,7 +211,7 @@ function serve() {
 	}, (cb) => {
 		optimizeImages().on('end', () => {
 			browsersync.reload();
-			cb(); // обязательно вызвать, иначе Gulp зависнет
+			cb();
 		});
 	});
 
